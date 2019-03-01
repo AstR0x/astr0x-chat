@@ -1,15 +1,31 @@
 {
-  "name": "astrochat",
-  "version": "1.0.0",
-  "description": "my fucking chat",
-  "main": "server/server.js",
+  "name": "chat",
+  "version": "0.1.0",
+  "private": true,
   "dependencies": {
+    "forever": "^0.15.3",
+    "react": "^16.8.3",
+    "react-dom": "^16.8.3",
+    "react-scripts": "2.1.5",
     "ws": "^6.1.4"
   },
-  "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start-server": "forever start -c serve -s -l 3001 build",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
-  "author": "",
-  "license": "ISC"
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "devDependencies": {
+    "nodemon": "^1.18.10"
+  }
 }

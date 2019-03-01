@@ -1,6 +1,8 @@
 const WebSocket = require('ws');
 
-const server = new WebSocket.Server({port: 3000}, () => console.log('Server is working!'));
+const server = new WebSocket.Server({port: 3001}, () => console.log('Server is working!'));
+
+let id = 0;
 
 server.on('connection', ws => {
   ws.send('Добро пожаловать...');
@@ -23,3 +25,4 @@ function sendMessage(message) {
     }
   })
 }
+

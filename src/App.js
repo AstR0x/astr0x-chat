@@ -1,58 +1,75 @@
 import React, {Component} from 'react';
 import Messages from './Components/Messages/Messages';
+import InputNickname from './Components/InputNickname/InputNickname';
 import Form from './Components/Form/Form';
-import Connections from './Components/Connections/Connections'
+import Connections from './Components/Connections/Connections';
+import io from 'socket.io-client';
 import './App.css';
 
 class App extends Component {
 
   state = {
     status: 'DISCONNECTED',
+    users: [],
+    nickname: '',
     messages: [],
     connections: 0,
   };
 
   componentDidMount() {
-    this.ws = new WebSocket('ws://localhost:3000');
+    this.socket = io('http://localhost:3000');
 
-    this.ws.onopen = () => this.setState({status: 'CONNECTED'});
+    this.socket.on('connect', () => this.setState({status: 'CONNECTED'}));
 
-    this.ws.onclose = () => this.setState({status: 'DISCONNECTED'});
+    this.socket.on('disconnect', () => this.setState({status: 'DISCONNECTED'}));
 
-    this.ws.onmessage = msg => {
+    this.socket.on('connectionsUpdate', connections => {
+          console.log(connections);
+          this.setState({
+            connections: connections.amount,
+            users: connections.users
+          });
+        }
+    );
+
+    this.socket.on('chat', msg => {
       const messages = this.state.messages.concat();
-      const newMessage = JSON.parse(msg.data);
-      const connections = newMessage.connections;
 
-      messages.push(newMessage);
+      messages.push(msg);
 
       this.setState({
         messages,
-        connections,
       })
-    };
+    });
   }
 
   messageHandler = (message) => {
-    this.ws.send(message);
+    this.socket.emit('chat', message);
     document.getElementById('input').value = '';
   };
 
+  nicknameHandler = (nickname) => {
+    this.setState({nickname});
+    this.socket.emit('connectionsUpdate', nickname);
+  };
+
   render() {
-    console.log(this.state.connections);
     return (
         <div className="App">
           <header>
             <h1>AstroChat</h1>
             <span id="status">{this.state.status}</span>
           </header>
-          <main className="main">
-            <div className="messages-block">
-              <Messages messages={this.state.messages}/>
-              <Form onMessage={this.messageHandler}/>
-            </div>
-            <Connections connections={this.state.connections}/>
-          </main>
+          {!this.state.nickname ?
+              <InputNickname onNickname={this.nicknameHandler}/> :
+              <main className="main">
+                <div className="messages-block">
+                  <Messages messages={this.state.messages}/>
+                  <Form onMessage={this.messageHandler}/>
+                </div>
+                <Connections connections={this.state.connections} users={this.state.users}/>
+              </main>
+          }
         </div>
     );
   }

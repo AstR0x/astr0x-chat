@@ -1,7 +1,7 @@
-const WebSocket = require('ws');
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
+const io = require('socket.io');
 
 
 function handleError(error, res) {
@@ -17,69 +17,59 @@ const server = http.createServer((req, res) => {
       res.writeHead(200, {'Content-Type': 'text/html'});
       res.end(html);
     })
-  } else if(req.url.match(/.css$/)) {
+  } else if (req.url.match(/.css$/)) {
     fs.readFile(path.join(__dirname, '../', 'build', req.url), (error, css) => {
       if (error) return handleError(error, res);
 
       res.writeHead(200, {'Content-Type': 'text/css'});
       res.end(css);
     })
-  } else if(req.url.match(/.js$/)) {
+  } else if (req.url.match(/.js$/)) {
     fs.readFile(path.join(__dirname, '../', 'build', req.url), (error, js) => {
       if (error) return handleError(error, res);
 
       res.writeHead(200, {'Content-Type': 'text/js'});
       res.end(js);
     })
-  }
-  else {
+  } else {
     res.writeHead(404, {'Content-Type': 'text/html'});
     res.end('404 Не найдено');
   }
 });
 
-const wsServer = new WebSocket.Server({ server });
+const socketServer = new io(server);
 
-let id = 0;
-let connections = 0;
+const connections = {
+  amount: 0,
+  users: []
+};
 
-wsServer.on('connection', ws => {
-  connections++;
-  ws.send(JSON.stringify({
-    id: null,
-    message: 'Добро пожаловать!',
-    time: new Date().toLocaleTimeString(),
-    connections
-  }));
+socketServer.on('connection', socket => {
+  connections.amount++;
 
-  sendMessage(JSON.stringify({
-    id: null,
-    message: 'Новое подключение',
-    time: new Date().toLocaleTimeString(),
-    connections
-  }));
+  socket.on('connectionsUpdate', nickname => {
+    connections.users.push({
+      id: socket.id,
+      nickname,
+    });
 
-  ws.on('message', message => {
-    sendMessage(JSON.stringify({
-      id: id++,
-      message,
-      time: new Date().toLocaleTimeString(),
-    }));
+    socketServer.emit('connectionsUpdate', connections);
   });
 
-  ws.on('close', () => {
-    sendMessage('Пользователь отключился');
-    connections--;
+  socket.on('chat', message => {
+    socketServer.emit('chat', {
+      message,
+      time: new Date().toLocaleTimeString(),
+    });
+  });
+
+  socket.on('disconnect', () => {
+    const index = connections.users.findIndex(elem => elem.id === socket.id);
+    connections.users.splice(index, 1);
+    connections.amount--;
+    socketServer.emit('connectionsUpdate', connections);
   });
 });
 
-server.listen(3000, () => console.log('Server is working!!!'));
-
-function sendMessage(message) {
-  wsServer.clients.forEach(client => {
-    if (client.readyState === WebSocket.OPEN) {
-      client.send(message);
-    }
-  })
-}
+server.listen(3000, () => console.log('Server is working!'));
 

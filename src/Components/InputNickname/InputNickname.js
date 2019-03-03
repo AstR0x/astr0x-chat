@@ -21,7 +21,7 @@ class Form extends Component {
         }}>
           <label className="input-nickname-form__label" htmlFor="message">INPUT YOUR NICKNAME: </label>
           <input className="input-nickname-form__input" onChange={this.valueChangeHandler.bind(this)} type="text" id="input" required autoFocus
-                 autoComplete="off"/>
+                 autoComplete="off" pattern="[A-z]{3,}" required/>
         </form>
     )
   }

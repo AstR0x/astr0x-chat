@@ -4,6 +4,7 @@ import InputNickname from './Components/InputNickname/InputNickname';
 import Form from './Components/Form/Form';
 import Connections from './Components/Connections/Connections';
 import io from 'socket.io-client';
+import sound from './sounds/sound.mp3';
 import './App.css';
 
 class App extends Component {
@@ -17,6 +18,8 @@ class App extends Component {
   };
 
   componentDidMount() {
+    this.sound = new Audio(sound);
+
     this.socket = io('http://localhost:3000');
 
     this.socket.on('connect', () => this.setState({status: 'CONNECTED'}));
@@ -33,6 +36,7 @@ class App extends Component {
     );
 
     this.socket.on('chat', msg => {
+      this.sound.play();
       const messages = this.state.messages.concat();
 
       messages.push(msg);

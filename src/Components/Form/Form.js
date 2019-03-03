@@ -20,7 +20,7 @@ class Form extends Component {
         }}>
           <label htmlFor="message">&gt;</label>
           <input onChange={this.valueChangeHandler.bind(this)} type="text" id="input" required autoFocus
-                 autoComplete="off"/>
+                 autoComplete="off" required/>
         </form>
     )
   }

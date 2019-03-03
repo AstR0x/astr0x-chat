@@ -31,9 +31,16 @@ const server = http.createServer((req, res) => {
       res.writeHead(200, {'Content-Type': 'text/js'});
       res.end(js);
     })
+  } else if (req.url.match(/.mp3$/)) {
+    fs.readFile(path.join(__dirname, '../', 'build', req.url), (error, mp3) => {
+      if (error) return handleError(error, res);
+
+      res.writeHead(200, {'Content-Type': 'audio/mpeg'});
+      res.end(mp3);
+    })
   } else {
     res.writeHead(404, {'Content-Type': 'text/html'});
-    res.end('404 Не найдено');
+    res.end('404 Not found');
   }
 });
 

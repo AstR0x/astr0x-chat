@@ -1,6 +1,6 @@
 {
-  "name": "chat",
-  "version": "0.1.0",
+  "name": "AstR0xChat",
+  "version": "0.2.0",
   "private": true,
   "dependencies": {
     "forever": "^0.15.3",
@@ -10,7 +10,7 @@
     "ws": "^6.1.4"
   },
   "scripts": {
-    "start-server": "forever start -c serve -s -l 3001 build",
+    "start-server": "forever start -c serve -s -l 3000 build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

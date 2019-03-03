@@ -13,6 +13,19 @@ header {
   list-style: none;
 }
 
+.main {
+  display: flex;
+  justify-content: space-between;
+}
+
+.active-connections-block {
+  margin-right: 10%;
+}
+
+.active-connections-block__header {
+  font-size: 18px;
+}
+
 #form {
   display: flex;
 }

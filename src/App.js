@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import io from 'socket.io-client';
 
-import Messages from './Components/Messages';
-import InputNickname from './Components/InputNickname';
-import Form from './Components/Form';
-import Connections from './Components/Connections';
+import Messages from './Components/MessagesList';
+import InputNickname from './Components/NicknameForm';
+import MessagesForm from './Components/MessagesForm';
+import Connections from './Components/ActiveConnections';
 import Header from './Components/Header';
 
 import newMessageSound from './sounds/new-message.mp3';
@@ -18,12 +18,13 @@ class App extends Component {
         messages: [],
         nickname: '',
         connections: 0,
+        isTyping: false
     };
 
     componentDidMount() {
         this.newMessageSound = new Audio(newMessageSound);
 
-        this.socket = io('http://localhost:8080');
+        this.socket = io('http://localhost:3001');
 
         this.socket.on('connect', () => this.setState({status: 'CONNECTED'}));
 
@@ -57,11 +58,11 @@ class App extends Component {
         });
     }
 
-    messageHandler = (message) => {
+    handleMessage = message => {
         this.socket.emit('chat', {text: message, nickname: this.state.nickname});
     };
 
-    nicknameHandler = (nickname) => {
+    handleNickname = nickname => {
         this.setState({nickname});
         this.socket.emit('connectionsUpdate', nickname);
     };
@@ -74,7 +75,7 @@ class App extends Component {
                     <main className="main">
                         <div className="messages-block">
                             <Messages messages={this.state.messages} />
-                            <Form onMessage={this.messageHandler} />
+                            <MessagesForm onMessage={this.handleMessage} />
                         </div>
                         <Connections connections={this.state.connections} users={this.state.users} />
                     </main>
@@ -84,7 +85,7 @@ class App extends Component {
             return (
                 <div className="App">
                     <Header status={this.state.status} />
-                    <InputNickname onNickname={this.nicknameHandler} />
+                    <InputNickname onNickname={this.handleNickname} />
                 </div>
             )
         } else {

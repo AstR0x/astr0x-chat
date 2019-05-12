@@ -1,94 +1,123 @@
+html {
+    overflow:  hidden;
+}
+
 body {
-  background-color: black;
-  color: #c695ee;
-  font-family: 'Roboto', monospace;
-}
-
-header {
-  text-align: center;
-}
-
-.messages {
-  margin-left: 1em;
-  list-style: none;
-  width: 800px;
-}
-
-.messages li {
-  width: 600px;
+    background-color: black;
+    color: #c695ee;
+    font-family: 'Roboto', monospace;
 }
 
 .main {
-  display: flex;
-  justify-content: space-between;
-}
-
-.active-connections-block {
-  margin-right: 10%;
-}
-
-.active-connections-block__header {
-  font-size: 18px;
-}
-
-#form {
-  display: flex;
-}
-
-input, label {
-  display: block;
+    display: flex;
+    justify-content: space-between;
 }
 
 input {
-  outline: none;
-  border: none;
-  background-color: black;
-  color: #c695ee;
-  padding: 1em .5em;
-  display: block;
-  font-size: 1.5em;
-  font-family: 'Roboto', monospace;
+    outline: none;
+    border: none;
+    background-color: black;
+    color: #c695ee;
+    padding: 1em .5em;
+    display: block;
+    font-size: 1.5em;
+    font-family: 'Roboto', monospace;
 }
 
-label {
-  display: block;
-  padding: 1em .5em;
-  font-size: 1.5em;
+/* Header */
+
+header {
+    text-align: center;
+}
+
+/* MessagesList */
+
+.messages-list {
+    margin-left: 1em;
+    list-style: none;
+    width: 600px;
+}
+
+/* Connections */
+
+.active-connections-block {
+    margin-right: 10%;
 }
 
 .active-connections-block__header {
-  text-transform: uppercase;
+    font-size: 18px;
+    text-transform: uppercase;
 }
 
-#input {
-  white-space: pre-wrap;
-  text-overflow: ellipsis;
-  width: 300px;
+/* MessagesForm */
+
+.messages-form {
+    display: flex;
 }
+
+.messages-form__label {
+    display: block;
+    padding: 1em .5em;
+    font-size: 1.5em;
+}
+
+/* NicknameForm */
 
 .input-nickname-form {
-  margin: 3% 5%;
+    display: flex;
+    margin: 3% 5%;
 }
 
 .input-nickname-form__label {
-  font-size: 15px;
+    font-size: 16px;
+    padding: 1em .5em;
 }
 
 .input-nickname-form__input {
-  width: 300px;
-  font-size: 15px;
+    font-size: 16px;
+}
+
+/* Animation */
+
+.message-slide-enter {
+    transform: translateX(-100%);
+}
+
+.message-slide-enter.message-slide-enter-active {
+    transform: translateX(0);
+    transition: all 500ms;
+}
+
+.messages-form__input {
+    width: 600px;
+}
+
+.connections-slide-enter {
+    transform: translateX(200%);
+}
+
+.connections-slide-enter.connections-slide-enter-active {
+    transform: translateX(0);
+    transition: all 500ms;
+}
+
+.connections-slide-leave {
+    transform: translateX(0);
+}
+
+.connections-slide-leave.connections-slide-leave-active {
+    transform: translateX(200%);
+    transition: all 500ms;
 }
 
 @media screen and (max-width: 375px) {
-  #messages {
-    margin-top: 30px;
-    margin-left: 5px;
-    font-size: 15px;
-  }
-  
-  .active-connections-block {
-    display: none;
-  }
-  
-  
+    #messages {
+        margin-top: 30px;
+        margin-left: 5px;
+        font-size: 15px;
+    }
+
+    .active-connections-block {
+        display: none;
+    }
 }

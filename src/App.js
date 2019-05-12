@@ -1,82 +1,102 @@
-import React, {Component} from 'react';
-import Messages from './Components/Messages/Messages';
-import InputNickname from './Components/InputNickname/InputNickname';
-import Form from './Components/Form/Form';
-import Connections from './Components/Connections/Connections';
+import React, { Component } from 'react';
 import io from 'socket.io-client';
-import sound from './sounds/sound.mp3';
+
+import Messages from './Components/Messages';
+import InputNickname from './Components/InputNickname';
+import Form from './Components/Form';
+import Connections from './Components/Connections';
+import Header from './Components/Header';
+
+import newMessageSound from './sounds/new-message.mp3';
 import './App.css';
 
 class App extends Component {
 
-  state = {
-    status: 'DISCONNECTED',
-    users: [],
-    nickname: '',
-    messages: [],
-    connections: 0,
-  };
+    state = {
+        status: 'DISCONNECTED',
+        users: [],
+        messages: [],
+        nickname: '',
+        connections: 0,
+    };
 
-  componentDidMount() {
-    this.sound = new Audio(sound);
+    componentDidMount() {
+        this.newMessageSound = new Audio(newMessageSound);
 
-    this.socket = io('http://localhost:8080');
+        this.socket = io('http://localhost:8080');
 
-    this.socket.on('connect', () => this.setState({status: 'CONNECTED'}));
+        this.socket.on('connect', () => this.setState({status: 'CONNECTED'}));
 
-    this.socket.on('disconnect', () => this.setState({status: 'DISCONNECTED'}));
+        this.socket.on('disconnect', () => this.setState({
+            status: 'DISCONNECTED',
+            users: [],
+            messages: [],
+            nickname: '',
+            connections: 0
+        }));
 
-    this.socket.on('connectionsUpdate', connections => {
-          console.log(connections);
-          this.setState({
-            connections: connections.amount,
-            users: connections.users
-          });
-        }
-    );
+        this.socket.on('connectionsUpdate', data => {
+                this.newMessageSound.play();
 
-    this.socket.on('chat', msg => {
-      this.sound.play();
-      const messages = this.state.messages.concat();
+                this.setState({
+                    connections: data.connections,
+                    users: data.users
+                });
+            }
+        );
 
-      messages.push(msg);
+        this.socket.on('chat', msg => {
+            this.newMessageSound.play();
+            const messages = this.state.messages;
 
-      this.setState({
-        messages,
-      })
-    });
-  }
+            messages.push(msg);
 
-  messageHandler = (message) => {
-    this.socket.emit('chat', message);
-    document.getElementById('input').value = '';
-  };
+            this.setState({
+                messages,
+            })
+        });
+    }
 
-  nicknameHandler = (nickname) => {
-    this.setState({nickname});
-    this.socket.emit('connectionsUpdate', nickname);
-  };
+    messageHandler = (message) => {
+        this.socket.emit('chat', {text: message, nickname: this.state.nickname});
+    };
 
-  render() {
-    return (
-        <div className="App">
-          <header>
-            <h1>AstroChat</h1>
-            <span id="status">{this.state.status}</span>
-          </header>
-          {!this.state.nickname ?
-              <InputNickname onNickname={this.nicknameHandler}/> :
-              <main className="main">
-                <div className="messages-block">
-                  <Messages messages={this.state.messages}/>
-                  <Form onMessage={this.messageHandler}/>
+    nicknameHandler = (nickname) => {
+        this.setState({nickname});
+        this.socket.emit('connectionsUpdate', nickname);
+    };
+
+    render() {
+        if(this.state.status === 'CONNECTED' && this.state.nickname) {
+            return (
+                <div className="App">
+                    <Header status={this.state.status} />
+                    <main className="main">
+                        <div className="messages-block">
+                            <Messages messages={this.state.messages} />
+                            <Form onMessage={this.messageHandler} />
+                        </div>
+                        <Connections connections={this.state.connections} users={this.state.users} />
+                    </main>
                 </div>
-                <Connections connections={this.state.connections} users={this.state.users}/>
-              </main>
-          }
-        </div>
-    );
-  }
+            );
+        } else if(this.state.status === 'CONNECTED') {
+            return (
+                <div className="App">
+                    <Header status={this.state.status} />
+                    <InputNickname onNickname={this.nicknameHandler} />
+                </div>
+            )
+        } else {
+            return (
+                <div className="App">
+                    <Header status={this.state.status} />
+                </div>
+            )
+        }
+
+    }
 }
+
 
 export default App;

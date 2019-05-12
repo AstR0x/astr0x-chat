@@ -1,16 +1,21 @@
 body {
   background-color: black;
   color: #c695ee;
-  font-family: 'Consolas', monospace;
+  font-family: 'Roboto', monospace;
 }
 
 header {
   text-align: center;
 }
 
-#messages {
+.messages {
   margin-left: 1em;
   list-style: none;
+  width: 800px;
+}
+
+.messages li {
+  width: 600px;
 }
 
 .main {
@@ -42,14 +47,36 @@ input {
   padding: 1em .5em;
   display: block;
   font-size: 1.5em;
-  font-family: 'Consolas', monospace;
-  flex: 1;
+  font-family: 'Roboto', monospace;
 }
 
 label {
   display: block;
   padding: 1em .5em;
   font-size: 1.5em;
+}
+
+.active-connections-block__header {
+  text-transform: uppercase;
+}
+
+#input {
+  white-space: pre-wrap;
+  text-overflow: ellipsis;
+  width: 300px;
+}
+
+.input-nickname-form {
+  margin: 3% 5%;
+}
+
+.input-nickname-form__label {
+  font-size: 15px;
+}
+
+.input-nickname-form__input {
+  width: 300px;
+  font-size: 15px;
 }
 
 @media screen and (max-width: 375px) {

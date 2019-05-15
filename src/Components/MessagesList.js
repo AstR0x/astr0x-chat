@@ -3,8 +3,8 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 export default ({messages}) => {
 
-    const fifteenMessages = messages.length > 20 ?
-        messages.slice(messages.length - 20)
+    const fifteenMessages = messages.length > 10 ?
+        messages.slice(messages.length - 10)
         : messages;
 
     return (

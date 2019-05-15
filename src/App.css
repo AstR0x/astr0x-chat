@@ -1,47 +1,38 @@
-html {
-    overflow:  hidden;
-}
-
-body {
+.container {
+    box-sizing: border-box;
+    overflow: hidden;
     background-color: black;
     color: #c695ee;
-    font-family: 'Roboto', monospace;
-}
-
-.main {
-    display: flex;
-    justify-content: space-between;
-}
-
-input {
-    outline: none;
-    border: none;
-    background-color: black;
-    color: #c695ee;
-    padding: 1em .5em;
-    display: block;
-    font-size: 1.5em;
     font-family: 'Roboto', monospace;
 }
 
 /* Header */
 
-header {
+.header {
     text-align: center;
+}
+
+.main {
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
 }
 
 /* MessagesList */
 
 .messages-list {
-    margin-left: 1em;
     list-style: none;
     width: 600px;
+}
+
+.messages-list__message {
+    word-wrap: break-word;
 }
 
 /* Connections */
 
 .active-connections-block {
-    margin-right: 10%;
+    padding: 5% 10%;
 }
 
 .active-connections-block__header {
@@ -50,6 +41,10 @@ header {
 }
 
 /* MessagesForm */
+
+.messages-block {
+    padding-top: 5%;
+}
 
 .messages-form {
     display: flex;
@@ -61,20 +56,38 @@ header {
     font-size: 1.5em;
 }
 
+.messages-form__input {
+    width: 680px;
+    outline: none;
+    border: none;
+    background-color: black;
+    color: #c695ee;
+    padding: 1em .5em;
+    display: block;
+    font-size: 1.5em;
+    font-family: 'Roboto', monospace;
+}
+
 /* NicknameForm */
 
 .input-nickname-form {
     display: flex;
-    margin: 3% 5%;
+    padding: 50px;
 }
 
 .input-nickname-form__label {
-    font-size: 16px;
+    font-size: 1.2em;
     padding: 1em .5em;
 }
 
 .input-nickname-form__input {
-    font-size: 16px;
+    outline: none;
+    border: none;
+    background-color: black;
+    color: #c695ee;
+    padding: 1em .5em;
+    font-size: 1.2em;
+    font-family: 'Roboto', monospace;
 }
 
 /* Animation */
@@ -89,7 +102,6 @@ header {
 }
 
 .messages-form__input {
-    width: 600px;
 }
 
 .connections-slide-enter {
@@ -111,10 +123,47 @@ header {
 }
 
 @media screen and (max-width: 375px) {
-    #messages {
-        margin-top: 30px;
-        margin-left: 5px;
-        font-size: 15px;
+
+    .input-nickname-form {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .input-nickname-form__label {
+        margin-left: 10px;
+        font-size: 16px;
+    }
+
+    .input-nickname-form__input {
+        padding-bottom: 10px;
+        border-bottom: #c695ee 1px solid;
+    }
+
+    .messages-list {
+        width: 310px;
+        font-size: 14px;
+        padding: 10px 20px;
+    }
+
+    .messages-list__message {
+        margin-top: 3px;
+    }
+
+    .messages-form {
+        position: absolute;
+        top: 91%;
+        left: 4%;
+    }
+
+    .messages-form__label {
+        padding: 0;
+        font-size: 30px;
+    }
+
+    .messages-form__input {
+        padding: 7px;
+        width: 270px;
+        font-size: 20px;
     }
 
     .active-connections-block {

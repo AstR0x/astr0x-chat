@@ -3,7 +3,7 @@ import React from 'react';
 
 export default ({status}) => {
     return (
-        <header>
+        <header className="header">
             <h1>Astr0xChat</h1>
             <span className="header__status">{status}</span>
         </header>

@@ -21,7 +21,7 @@ class Form extends Component {
     render() {
         return (
             <form id="form" className="input-nickname-form" onSubmit={this.handleSubmit}>
-                <label className="input-nickname-form__label" htmlFor="message">INPUT YOUR NICKNAME: </label>
+                <label className="input-nickname-form__label" htmlFor="message">INPUT YOUR NICKNAME:</label>
                 <input className="input-nickname-form__input"
                        onChange={this.handleChange}
                        type="text"
@@ -29,6 +29,7 @@ class Form extends Component {
                        autoFocus
                        autoComplete="off"
                        pattern="[A-z]{3,}"
+                       maxLength="9"
                        required />
             </form>
         )

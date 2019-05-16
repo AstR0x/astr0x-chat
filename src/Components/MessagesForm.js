@@ -32,7 +32,7 @@ class MessagesForm extends Component {
                     autoFocus
                     ref="message"
                     autoComplete="off"
-                    maxLength="50"
+                    maxLength="100"
                     onChange={this.handleChangeValue} />
             </form>
         )

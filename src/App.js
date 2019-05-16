@@ -24,7 +24,7 @@ class App extends Component {
     componentDidMount() {
         this.newMessageSound = new Audio(newMessageSound);
 
-        this.socket = io('http://37.230.115.224:3000');
+        this.socket = io('http://localhost:3001');
 
         this.socket.on('connect', () => this.setState({status: 'CONNECTED'}));
 

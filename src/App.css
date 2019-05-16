@@ -23,11 +23,32 @@
 .messages-list {
     list-style: none;
     width: 600px;
+    max-height: 500px;
+    overflow-y: auto;
 }
 
 .messages-list__message {
     word-wrap: break-word;
+    margin-top: 6px;
 }
+
+.messages-list__nickname {
+    white-space: pre-wrap;
+}
+
+.messages-list__text {
+    line-height: 16px;
+    font-size: 16px;
+    white-space: pre-wrap;
+}
+
+.messages-list__time {
+    position: relative;
+    top: 4px;
+    font-size: 12px;
+    color: #c0c0c0;
+}
+
 
 /* Connections */
 
@@ -122,7 +143,7 @@
     transition: all 500ms;
 }
 
-@media screen and (max-width: 375px) {
+@media screen and (max-width: 320px) {
 
     .input-nickname-form {
         flex-wrap: wrap;
@@ -140,13 +161,9 @@
     }
 
     .messages-list {
-        width: 310px;
-        font-size: 14px;
-        padding: 10px 20px;
-    }
-
-    .messages-list__message {
-        margin-top: 3px;
+        width: 305px;
+        max-height: 340px;
+        padding: 10px 30px;
     }
 
     .messages-form {
@@ -169,4 +186,190 @@
     .active-connections-block {
         display: none;
     }
+}
+
+@media screen and (min-width: 321px) and (max-width: 375px) {
+
+    .input-nickname-form {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .input-nickname-form__label {
+        margin-left: 10px;
+        font-size: 16px;
+    }
+
+    .input-nickname-form__input {
+        padding-bottom: 10px;
+        border-bottom: #c695ee 1px solid;
+    }
+
+    .messages-list {
+        width: 340px;
+        max-height: 430px;
+        padding: 10px 20px;
+    }
+
+    .messages-list__message {
+        margin-top: 6px;
+    }
+
+    .messages-form {
+        position: absolute;
+        top: 91%;
+        left: 4%;
+    }
+
+    .messages-form__label {
+        padding: 0;
+        font-size: 30px;
+    }
+
+    .messages-form__input {
+        padding: 7px;
+        width: 270px;
+        font-size: 20px;
+    }
+
+    .active-connections-block {
+        display: none;
+    }
+}
+
+@media screen and (min-width: 376px) and (max-width: 414px) {
+
+    .input-nickname-form {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .input-nickname-form__label {
+        margin-left: 10px;
+        font-size: 16px;
+    }
+
+    .input-nickname-form__input {
+        padding-bottom: 10px;
+        border-bottom: #c695ee 1px solid;
+    }
+
+    .messages-list {
+        width: 385px;
+        max-height: 500px;
+        padding: 10px 20px;
+    }
+
+    .messages-list__message {
+        line-height: 18px;
+    }
+
+    .messages-form {
+        position: absolute;
+        top: 91%;
+        left: 4%;
+    }
+
+    .messages-form__label {
+        padding: 0;
+        font-size: 30px;
+    }
+
+    .messages-form__input {
+        padding: 7px;
+        width: 270px;
+        font-size: 20px;
+    }
+
+    .active-connections-block {
+        display: none;
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+
+    .input-nickname-form {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .input-nickname-form__label {
+        margin-left: 10px;
+        font-size: 24px;
+    }
+
+    .input-nickname-form__input {
+        width: 400px;
+        padding-bottom: 10px;
+        border-bottom: #c695ee 1px solid;
+    }
+
+    .messages-list {
+        width: 750px;
+        max-height: 720px;
+        padding: 10px 20px;
+    }
+
+    .messages-list__message {
+        margin-top: 8px;
+        line-height: 26px;
+    }
+
+    .messages-list__nickname {
+        font-size: 22px;
+    }
+
+    .messages-list__text {
+        font-size: 22px;
+    }
+
+    .messages-list__time {
+        font-size: 15px;
+    }
+
+    .messages-form {
+        position: absolute;
+        top: 91%;
+        left: 4%;
+    }
+
+    .messages-form__label {
+        padding: 0;
+        font-size: 30px;
+    }
+
+    .messages-form__input {
+        padding: 7px;
+        width: 270px;
+        font-size: 20px;
+    }
+
+    .active-connections-block {
+        display: none;
+    }
+}
+
+::-webkit-scrollbar {
+    width: 3px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: #999;
+}
+
+::-webkit-scrollbar-track-piece {
+    background-color: #c695ee;
+}
+
+::-webkit-scrollbar-thumb {
+    height: 50px;
+    background-color: #666;
+}
+
+::-webkit-scrollbar-corner {
+    background-color: #999;
+}
+
+::-webkit-resizer {
+    background-color: #666;
 }

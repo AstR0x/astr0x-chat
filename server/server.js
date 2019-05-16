@@ -1,6 +1,7 @@
 const http = require('http');
 const express = require('express');
 const io = require('socket.io');
+const randomColor = require('random-color');
 
 const app = express();
 
@@ -19,7 +20,8 @@ socketServer.on('connection', socket => {
         data.connections++;
         data.users.push({
             id: socket.id,
-            nickname
+            nickname: nickname,
+            color: randomColor().hexString()
         });
 
         socketServer.emit('chat', {
@@ -35,6 +37,7 @@ socketServer.on('connection', socket => {
             text: msg.text,
             nickname: msg.nickname,
             time: new Date().toLocaleTimeString(),
+            color: data.users.find(obj => obj.id === socket.id).color,
         });
     });
 
@@ -57,4 +60,4 @@ socketServer.on('connection', socket => {
     });
 });
 
-server.listen(3001, () => console.log('Server is working!'));
+server.listen(3000, () => console.log('Server is working!'));

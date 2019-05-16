@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import io from 'socket.io-client';
 
+
 import Messages from './Components/MessagesList';
 import InputNickname from './Components/NicknameForm';
 import MessagesForm from './Components/MessagesForm';
@@ -18,7 +19,6 @@ class App extends Component {
         messages: [],
         nickname: '',
         connections: 0,
-        isTyping: false
     };
 
     componentDidMount() {
@@ -33,7 +33,7 @@ class App extends Component {
             users: [],
             messages: [],
             nickname: '',
-            connections: 0
+            connections: 0,
         }));
 
         this.socket.on('connectionsUpdate', data => {

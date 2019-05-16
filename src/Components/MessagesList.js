@@ -3,9 +3,10 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 export default ({messages}) => {
 
-    const fifteenMessages = messages.length > 10 ?
-        messages.slice(messages.length - 10)
+    const fifteenMessages = messages.length > 20 ?
+        messages.slice(messages.length - 20)
         : messages;
+
 
     return (
         <ReactCSSTransitionGroup
@@ -18,8 +19,8 @@ export default ({messages}) => {
             {fifteenMessages.map(message =>
                 <li className="messages-list__message">
                     <span className="messages-list__time">{message.time}</span>
-                    <span className="messages-list__nickname">{message.nickname ? ' ' + message.nickname : ''}</span>
-                    <span className="messages-list__message">{': ' + message.text}</span>
+                    <span className="messages-list__nickname" style={{color: message.color}}>{message.nickname ? ' ' + message.nickname : ''}</span>
+                    <span className="messages-list__message" style={{color: message.color}}>{': ' + message.text}</span>
                 </li>)}
         </ReactCSSTransitionGroup>
     )

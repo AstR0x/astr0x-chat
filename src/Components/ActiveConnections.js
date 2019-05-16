@@ -10,7 +10,7 @@ export default ({users, connections}) => {
                 transitionAppear={true}
                 transitionAppearTimeout="500"
                 transitionEnterTimeout="500"
-                transitionLeaveTimeout="500">{users.map(user => <li>{user.nickname}</li>)}
+                transitionLeaveTimeout="500">{users.map(user => <li style={{color: user.color}}>{user.nickname}</li>)}
             </ReactCSSTransitionGroup>
         </div>
     )

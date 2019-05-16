@@ -2,7 +2,7 @@
     box-sizing: border-box;
     overflow: hidden;
     background-color: black;
-    color: #c695ee;
+    color: #fff;
     font-family: 'Roboto', monospace;
 }
 
@@ -61,7 +61,7 @@
     outline: none;
     border: none;
     background-color: black;
-    color: #c695ee;
+    color: #fff;
     padding: 1em .5em;
     display: block;
     font-size: 1.5em;
@@ -84,7 +84,7 @@
     outline: none;
     border: none;
     background-color: black;
-    color: #c695ee;
+    color: #fff;
     padding: 1em .5em;
     font-size: 1.2em;
     font-family: 'Roboto', monospace;
